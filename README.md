@@ -24,8 +24,6 @@ Project best practices and scores:
 
 Infrastracture status: [uptime.globaleaks.org](https://uptime.globaleaks.org)
 
-The uptime of our infrastructure is continously monitored thanks to the support of [UptimeRobot.com](https://uptimerobot.com/).
-
 ## Documentation
 GlobaLeaks's documentation is built and hosted by [Read the Docs](https://readthedocs.org) and accessible at [docs.globaleaks.org](https://docs.globaleaks.org).
 | Branch | Documentation Build
@@ -34,14 +32,18 @@ GlobaLeaks's documentation is built and hosted by [Read the Docs](https://readth
 | [devel](https://github.com/globaleaks/GlobaLeaks/tree/devel) | [![Build Status](https://readthedocs.org/projects/globaleaks/badge/?version=devel&style=flat)](https://docs.globaleaks.org/en/devel/)
 
 ## Community Support
-If you need technical support, have general questions, or have new ideas for GlobaLeaks, please post your message on the [community support forum](https://forum.globaleaks.org/).
+If you need technical support, have general questions, or have new ideas for GlobaLeaks, please post your message on the [Community Forum](https://forum.globaleaks.org/).
 
 Join our [Slack](https://slack.globaleaks.org) to get in touch with the development team and the GlobaLeaks community:
 * #development to participate in development discussions
 * #community-support for the community support channel in English
 * #community-support-ita for the community support channel in Italian
 
-If you want to contribute to software development or report a bug, please open an issue on [GitHub](https://github.com/globaleaks/GlobaLeaks/issues/).
+You can join our development discussions as well on IRC on the channel [#globaleaks](https://webchat.oftc.net/?channels=%23globaleaks) of the [OFTC Network](https://www.oftc.net/).
+
+If you want to contribute to the project please check the [Contributors Guidelines](https://github.com/globaleaks/GlobaLeaks/blob/main/CONTRIBUTING.md).
+
+In case you need to file a security report please check our [Security Policy](https://github.com/globaleaks/GlobaLeaks/blob/main/SECURITY.md)
 
 ## Brand Guidelines and Brand Assets
 Within the GlobaLeaks project we researched a nice and smooth brand style, using accessible colors and trying to communicate our values through the brand.
