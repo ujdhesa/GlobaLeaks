@@ -19,7 +19,7 @@ from globaleaks.utils.crypto import generateOtpSecret, generateRandomKey, totpVe
 from globaleaks.utils.utility import datetime_now, datetime_null
 
 
-def set_user_password(tid, user, password, cc):
+def db_set_user_password(tid, user, password, cc=None):
     # Regenerate the password hash only if different from the best choice on the platform
     if user.hash_alg != 'ARGON2':
         user.hash_alg = 'ARGON2'
@@ -34,13 +34,11 @@ def set_user_password(tid, user, password, cc):
     user.password = password_hash
     user.password_change_date = datetime_now()
 
-    State.log(tid=tid, type='change_password', user_id=user.id, object_id=user.id)
-
     if not State.tenant_cache[tid].encryption and cc == '':
         return None
 
     enc_key = GCE.derive_key(password.encode(), user.salt)
-    if not cc:
+    if cc is None:
         # The first password change triggers the generation
         # of the user encryption private key and its backup
         cc, user.crypto_pub_key = GCE.generate_keypair()
@@ -205,7 +203,9 @@ def db_user_update_user(session, tid, user_session, request):
                                       user.password):
                 raise errors.InvalidOldPassword
 
-        user_session.cc = set_user_password(tid, user, request['password'], user_session.cc)
+        user_session.cc = db_set_user_password(tid, user, request['password'], user_session.cc)
+
+        State.log(tid=tid, type='change_password', user_id=user.id, object_id=user.id)
 
     # If the email address changed, send a validation email
     if request['mail_address'] != user.mail_address:

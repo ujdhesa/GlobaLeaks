@@ -92,19 +92,12 @@ def db_wizard(session, tid, hostname, request):
     admin_desc['pgp_key_remove'] = False
 
     admin_user = db_create_user(session, tid, admin_desc, language)
-    admin_user.password = GCE.hash_password(request['admin_password'], admin_user.salt)
     admin_user.password_change_needed = False
-    admin_user.password_change_date = date
 
-    if encryption:
-        if escrow:
-            crypto_escrow_prv_key, crypto_escrow_pub_key = GCE.generate_keypair()
-            node.set_val('crypto_escrow_pub_key', crypto_escrow_pub_key)
-
-        db_gen_user_keys(session, tid, admin_user, request['admin_password'])
-
-        if escrow:
-            admin_user.crypto_escrow_prv_key = Base64Encoder.encode(GCE.asymmetric_encrypt(admin_user.crypto_pub_key, crypto_escrow_prv_key))
+    if encryption and escrow:
+        crypto_escrow_prv_key, crypto_escrow_pub_key = GCE.generate_keypair()
+        node.set_val('crypto_escrow_pub_key', crypto_escrow_pub_key)
+        admin_user.crypto_escrow_prv_key = Base64Encoder.encode(GCE.asymmetric_encrypt(admin_user.crypto_pub_key, crypto_escrow_prv_key))
 
     receiver_user = None
     if not request['skip_recipient_account_creation']:
@@ -118,12 +111,7 @@ def db_wizard(session, tid, hostname, request):
         receiver_desc['pgp_key_remove'] = False
         receiver_desc['send_account_activation_link'] = False
         receiver_user = db_create_user(session, tid, receiver_desc, language)
-        receiver_user.password = GCE.hash_password(receiver_desc['password'], receiver_user.salt)
         receiver_user.password_change_needed = False
-        receiver_user.password_change_date = date
-
-        if encryption:
-            db_gen_user_keys(session, tid, receiver_user, receiver_desc['password'])
 
     context_desc = models.Context().dict(language)
     context_desc['name'] = 'Default'
