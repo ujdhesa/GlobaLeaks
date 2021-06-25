@@ -18,6 +18,7 @@ matrix:
   include:
   - env: GLTEST='test' CODACY=true
   - env: GLTEST='build_and_install' DISTRIBUTION='buster'
+  - env: GLTEST='build_and_install' DISTRIBUTION='bullseye'
   - env: GLTEST='build_and_install' DISTRIBUTION='focal'
   - env: GLTEST='end2end-0' BROWSER='chrome latest'
   - env: GLTEST='end2end-1' BROWSER='firefox latest'
