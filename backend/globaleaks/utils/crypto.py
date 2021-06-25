@@ -75,11 +75,11 @@ def generateRandomKey() -> str:
     return sha256(nacl_random(32)).decode()
 
 
-def generateRandomPassword(N: int) -> str:
+def generateRandomPassword() -> str:
     """
     Return a random password
     """
-    return ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(N))
+    return ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits + string.punctuation) for _ in range(16))
 
 
 def generate2FA():
